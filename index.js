@@ -3,14 +3,15 @@ dotenv.config()
 const express = require('express');
 const app = express();
 const db = require('./db_config')
+const bodyParser = require('body-parser')
 const PORT = process.env.PORT || 5000;
 // controller import 
-const userRouter = require('./controller/user.controller');
-const bodyParser = require('body-parser');
+const userRouter = require('./controller/user.controller')
+const blogRouter = require('./controller/blogs.controller')
 
 app.use(bodyParser.json());
-// app.use(express.json());   //middleware..
-app.use(express.urlencoded({ extended: true }))
+// app.use(express.json()); // middleware...
+app.use(express.urlencoded({extended:true}))
 db.dbConfig();
 
 // const connectionParams = {
@@ -33,7 +34,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1/users', userRouter) //endpoint
 // app.use('/api/v1/orders')
 // app.use('/api/v1/employees')
-// app.use('/api/v1/blogs')
+app.use('/api/v1/blogs', blogRouter)
 // app.use('/api/v1/post')
 
 // app.get('/home', (req, res) => {
